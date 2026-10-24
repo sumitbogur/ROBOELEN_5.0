@@ -1,33 +1,36 @@
-import { useState, useRef, useEffect } from 'react';
+import { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { motion } from 'framer-motion';
 import { useForm } from '../context/FormContext';
 import ProgressDots from '../components/ProgressDots';
+import { PlaceholdersAndVanishInput } from '../components/ui/placeholders-and-vanish-input';
+
+const NAME_PLACEHOLDERS = [
+  'e.g. Rahul Sharma',
+  'e.g. Ananya Deshmukh',
+  'e.g. Vikramaditya Patil',
+  'e.g. Sneha Kulkarni',
+  'Type your full name to begin...',
+];
 
 export default function NamePage() {
   const { name, setName } = useForm();
   const [value, setValue] = useState(name);
   const navigate = useNavigate();
-  const inputRef = useRef(null);
-
-  useEffect(() => {
-    // Autofocus on mount
-    const timer = setTimeout(() => inputRef.current?.focus(), 250);
-    return () => clearTimeout(timer);
-  }, []);
 
   const isValid = value.trim().length >= 2;
 
-  function handleNext() {
-    if (!isValid) return;
-    setName(value.trim());
+  function handleVanishComplete(submittedName) {
+    const finalName = (submittedName || value).trim();
+    if (finalName.length < 2) return;
+    setName(finalName);
     navigate('/branch');
   }
 
-  function handleKeyDown(e) {
-    if (e.key === 'Enter' && isValid) {
-      handleNext();
-    }
+  function handleDirectNext() {
+    if (!isValid) return;
+    setName(value.trim());
+    navigate('/branch');
   }
 
   return (
@@ -67,25 +70,22 @@ export default function NamePage() {
         </p>
       </div>
 
-      {/* Input Field with accessible label */}
+      {/* Dynamic Animated Input with Gold Dissolution Particles */}
       <div className="mb-8">
         <label
-          htmlFor="name-input"
+          htmlFor="vanish-name-input"
           className="block text-xs font-semibold uppercase tracking-[0.12em] mb-2"
           style={{ color: 'var(--color-gold-paper)', opacity: 0.9 }}
         >
           Full Name
         </label>
-        <input
-          ref={inputRef}
-          id="name-input"
-          type="text"
-          value={value}
+        <PlaceholdersAndVanishInput
+          id="vanish-name-input"
+          placeholders={NAME_PLACEHOLDERS}
+          defaultValue={name}
+          particleColor="#F4B900"
           onChange={(e) => setValue(e.target.value)}
-          onKeyDown={handleKeyDown}
-          placeholder="e.g. Rahul Sharma"
-          autoComplete="name"
-          style={{ fontSize: '1.05rem' }}
+          onVanishComplete={handleVanishComplete}
         />
       </div>
 
@@ -95,7 +95,7 @@ export default function NamePage() {
           id="name-next-btn"
           className="btn-primary"
           disabled={!isValid}
-          onClick={handleNext}
+          onClick={handleDirectNext}
         >
           <span>Next</span>
           <span aria-hidden="true">→</span>
