@@ -1,10 +1,23 @@
 import { motion } from 'framer-motion';
+import { SonarGrid } from './ui/sonar-grid';
 
 export default function Layout({ children }) {
   return (
-    <div className="app-background flex flex-col items-center min-h-[100svh] relative overflow-x-hidden">
+    <SonarGrid
+      id="app-root-sonar"
+      color="#F4B900"
+      baseOpacity={0.22}
+      dotRadius={1.25}
+      spacing={26}
+      speed={220}
+      ringWidth={85}
+      amplitude={2.0}
+      pingEvery={3.5}
+      interactive={true}
+      className="app-background flex flex-col items-center min-h-[100svh] relative overflow-x-hidden !cursor-default"
+    >
       {/* Subtle print texture grain overlay */}
-      <div className="texture-overlay" aria-hidden="true" />
+      <div className="texture-overlay pointer-events-none" aria-hidden="true" />
 
       {/* Decorative distressed top accent inspired by poster brushwork */}
       <div
@@ -61,6 +74,6 @@ export default function Layout({ children }) {
       <main className="flex-1 flex flex-col w-full max-w-[448px] px-5 pb-8 relative z-10">
         {children}
       </main>
-    </div>
+    </SonarGrid>
   );
 }
