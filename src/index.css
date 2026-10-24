@@ -1,0 +1,247 @@
+@import "tailwindcss";
+
+/* ── ROBOELEN Poster Design Tokens ── */
+@theme {
+  --color-bg: #080807;
+  --color-bg-elevated: #11110f;
+  --color-bg-soft: #1b1a16;
+  --color-surface-input: #171612;
+  --color-border: #49402a;
+  --color-gold: #f4b900;
+  --color-gold-bright: #ffd23f;
+  --color-gold-deep: #b98200;
+  --color-gold-paper: #f8d96a;
+  --color-text: #f7f3e8;
+  --color-text-muted: #b9b3a4;
+  --color-text-on-gold: #11100b;
+  --color-error: #f06a57;
+  --color-success: #9ccb78;
+
+  --font-display: "Anton", "Oswald", Impact, sans-serif;
+  --font-heading: "Oswald", "Inter", sans-serif;
+  --font-body: "Inter", Arial, sans-serif;
+  --font-serif: "Playfair Display", Georgia, serif;
+
+  --radius-card: 18px;
+  --radius-control: 12px;
+  --shadow-card: 0 16px 48px rgba(0, 0, 0, 0.38);
+  --shadow-gold: 0 8px 24px rgba(244, 185, 0, 0.14);
+}
+
+:root {
+  --color-bg: #080807;
+  --color-bg-elevated: #11110f;
+  --color-bg-soft: #1b1a16;
+  --color-surface-input: #171612;
+  --color-border: #49402a;
+  --color-gold: #f4b900;
+  --color-gold-bright: #ffd23f;
+  --color-gold-deep: #b98200;
+  --color-gold-paper: #f8d96a;
+  --color-text: #f7f3e8;
+  --color-text-muted: #b9b3a4;
+  --color-text-on-gold: #11100b;
+  --color-error: #f06a57;
+  --color-success: #9ccb78;
+
+  --font-display: "Anton", "Oswald", Impact, sans-serif;
+  --font-heading: "Oswald", "Inter", sans-serif;
+  --font-body: "Inter", Arial, sans-serif;
+  --font-serif: "Playfair Display", Georgia, serif;
+
+  --radius-card: 18px;
+  --radius-control: 12px;
+  --shadow-card: 0 16px 48px rgba(0, 0, 0, 0.38);
+  --shadow-gold: 0 8px 24px rgba(244, 185, 0, 0.14);
+}
+
+/* ── Global Resets ── */
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+}
+
+html {
+  background-color: var(--color-bg);
+  color: var(--color-text);
+  font-family: var(--font-body);
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+body {
+  margin: 0;
+  min-height: 100svh;
+  background: var(--color-bg);
+  overflow-x: hidden;
+  color: var(--color-text);
+}
+
+#root {
+  min-height: 100svh;
+}
+
+/* ── Scrollbar ── */
+::-webkit-scrollbar {
+  width: 6px;
+}
+::-webkit-scrollbar-track {
+  background: var(--color-bg);
+}
+::-webkit-scrollbar-thumb {
+  background: var(--color-border);
+  border-radius: 3px;
+}
+
+/* ── App Background & Textures ── */
+.app-background {
+  min-height: 100svh;
+  color: var(--color-text);
+  background:
+    radial-gradient(ellipse at 50% 0%, rgba(244, 185, 0, 0.11), transparent 45%),
+    radial-gradient(ellipse at 50% 100%, rgba(185, 130, 0, 0.05), transparent 40%),
+    linear-gradient(180deg, #11100b 0%, #080807 52%, #050505 100%);
+  position: relative;
+}
+
+.texture-overlay {
+  position: fixed;
+  inset: 0;
+  pointer-events: none;
+  opacity: 0.045;
+  mix-blend-mode: screen;
+  z-index: 1;
+  background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noiseFilter'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noiseFilter)' opacity='1'/%3E%3C/svg%3E");
+}
+
+.poster-rule {
+  height: 1px;
+  border: 0;
+  background: linear-gradient(90deg, transparent, var(--color-gold), transparent);
+  opacity: 0.8;
+}
+
+/* ── Input Styles ── */
+input[type="text"] {
+  background: var(--color-surface-input);
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-control);
+  padding: 14px 16px;
+  min-height: 54px;
+  font-size: 1.05rem;
+  color: var(--color-text);
+  font-family: var(--font-body);
+  width: 100%;
+  outline: none;
+  transition: border-color 0.2s ease, box-shadow 0.2s ease;
+}
+
+input[type="text"]::placeholder {
+  color: var(--color-text-muted);
+  opacity: 0.75;
+}
+
+input[type="text"]:focus {
+  border-color: var(--color-gold);
+  box-shadow: 0 0 0 3px rgba(244, 185, 0, 0.18);
+}
+
+input[type="text"].input-error {
+  border-color: var(--color-error);
+  box-shadow: 0 0 0 3px rgba(240, 106, 87, 0.18);
+}
+
+/* ── Button Styles ── */
+.btn-primary {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 10px;
+  padding: 14px 28px;
+  min-height: 52px;
+  border: 1px solid var(--color-gold-bright);
+  border-radius: var(--radius-control);
+  font-size: 1rem;
+  font-weight: 700;
+  font-family: var(--font-body);
+  color: var(--color-text-on-gold);
+  background: linear-gradient(135deg, #ffd23f 0%, #f4b900 58%, #d99a00 100%);
+  cursor: pointer;
+  box-shadow: var(--shadow-gold);
+  transition: transform 0.15s ease, box-shadow 0.2s ease, filter 0.15s ease;
+  width: 100%;
+  letter-spacing: 0.02em;
+}
+
+.btn-primary:hover:not(:disabled) {
+  transform: translateY(-1px);
+  filter: brightness(1.05);
+  box-shadow: 0 10px 28px rgba(244, 185, 0, 0.22);
+}
+
+.btn-primary:active:not(:disabled) {
+  transform: scale(0.98);
+}
+
+.btn-primary:focus-visible {
+  outline: 2px solid var(--color-gold-bright);
+  outline-offset: 2px;
+}
+
+.btn-primary:disabled {
+  opacity: 0.42;
+  cursor: not-allowed;
+  box-shadow: none;
+  filter: grayscale(0.4);
+}
+
+.btn-secondary {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  padding: 14px 22px;
+  min-height: 50px;
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-control);
+  font-size: 0.95rem;
+  font-weight: 600;
+  font-family: var(--font-body);
+  color: var(--color-text);
+  background: var(--color-surface-input);
+  cursor: pointer;
+  transition: border-color 0.2s ease, color 0.2s ease, background 0.2s ease;
+  width: 100%;
+}
+
+.btn-secondary:hover {
+  border-color: var(--color-gold);
+  color: var(--color-gold-bright);
+  background: rgba(244, 185, 0, 0.06);
+}
+
+.btn-secondary:focus-visible {
+  outline: 2px solid var(--color-gold);
+  outline-offset: 2px;
+}
+
+/* ── Confetti Particle ── */
+.confetti-piece {
+  position: fixed;
+  pointer-events: none;
+  z-index: 1000;
+  border-radius: 2px;
+}
+
+/* ── Reduced Motion ── */
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+    scroll-behavior: auto !important;
+  }
+}
