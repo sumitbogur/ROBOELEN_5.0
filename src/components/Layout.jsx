@@ -1,5 +1,6 @@
 import { motion } from 'framer-motion';
 import { SonarGrid } from './ui/sonar-grid';
+import CreatorCredit from './CreatorCredit';
 
 export default function Layout({ children }) {
   return (
@@ -71,9 +72,19 @@ export default function Layout({ children }) {
       </motion.header>
 
       {/* Main registration container */}
-      <main className="flex-1 flex flex-col w-full max-w-[448px] px-5 pb-8 relative z-10">
+      <main className="flex-1 flex flex-col w-full max-w-[448px] px-5 pb-6 sm:pb-8 relative z-10">
         {children}
       </main>
+
+      {/* Shared Footer / Subtle Creator Signature */}
+      <footer
+        className="w-full relative z-10 text-center pb-3 pt-1 px-4 mt-auto flex justify-center items-center pointer-events-auto"
+        style={{
+          paddingBottom: 'max(12px, calc(env(safe-area-inset-bottom, 0px) + 8px))',
+        }}
+      >
+        <CreatorCredit />
+      </footer>
     </SonarGrid>
   );
 }
